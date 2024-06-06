@@ -73,8 +73,7 @@ spec:
               df
               ls -la /usr/local/apisix/conf/
               ls -la /apisix-config/
-              chown apisix:apisix /apisix-config/apisix.yaml
-              cp -f /apisix-config/apisix.yaml /usr/local/apisix/conf/apisix.yaml && \
+              cat /apisix-config/apisix.yaml > /usr/local/apisix/conf/apisix.yaml && \
               /docker-entrypoint.sh docker-start
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
