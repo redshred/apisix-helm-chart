@@ -252,7 +252,7 @@ spec:
             secretName: {{ .Values.apisix.ssl.existingCASecret | quote }}
           name: ssl
         {{- end }}
-        {{- if .Values.etcd.auth.tls.enabled }}
+        {{- if and (not (eq .Values.apisix.deployment.mode "standalone")) .Values.etcd.auth.tls.enabled }}
         - secret:
             secretName: {{ .Values.etcd.auth.tls.existingSecret | quote }}
           name: etcd-ssl
