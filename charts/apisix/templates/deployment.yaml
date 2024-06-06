@@ -70,6 +70,9 @@ spec:
             - sh
             - "-c"
             - |
+              df
+              ls -la /usr/local/apisix/conf/
+              ls -la /apisix-config/
               cp -f /apisix-config/apisix.yaml /usr/local/apisix/conf/apisix.yaml && \
               /docker-entrypoint.sh docker-start
           {{- end }}
