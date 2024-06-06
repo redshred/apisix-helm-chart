@@ -70,7 +70,7 @@ spec:
             - sh
             - "-c"
             - |
-              ln -s /apisix-config/apisix.yaml /usr/local/apisix/conf/apisix.yaml && \
+              ln -fs /apisix-config/apisix.yaml /usr/local/apisix/conf/apisix.yaml && \
               /docker-entrypoint.sh docker-start
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
