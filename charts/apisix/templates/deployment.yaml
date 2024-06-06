@@ -66,10 +66,14 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
-          command: [ "sh", "-c","ln -s /apisix-config/apisix.yaml /usr/local/apisix/conf/apisix.yaml && /docker-entrypoint.sh docker-start" ]
+          command:
+            - /docker-entrypoint.sh
+            - docker-start
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: APISIX_STAND_ALONE
+              value: {{ eq .Values.apisix.deployment.mode "standalone" | quote }}
           {{- if .Values.timezone }}
             - name: TZ
               value: {{ .Values.timezone }}
@@ -168,7 +172,7 @@ spec:
                   - "sleep 30"
           volumeMounts:
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
-            - mountPath: /apisix-config/apisix.yaml
+            - mountPath: /usr/local/apisix/conf/apisix.yaml
               subPath: {{ .Values.apisix.standalone.configMap.keyName | quote }}
               name: apisix-standalone-config
           {{- end }}
