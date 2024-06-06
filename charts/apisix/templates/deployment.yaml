@@ -70,6 +70,7 @@ spec:
             - /bin/sh
             - -c
             - |-
+              ln -s {{ .Values.apisix.standalone.configMap.keyName | quote }} /usr/local/apisix/conf/apisix.yaml
               /usr/bin/apisix init && \
               /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
           {{- end }}
@@ -175,8 +176,7 @@ spec:
                   - "sleep 30"
           volumeMounts:
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
-            - mountPath: /usr/local/apisix/conf/apisix.yaml
-              subPath: {{ .Values.apisix.standalone.configMap.keyName | quote }}
+            - mountPath: /apisix-config
               name: apisix-standalone-config
           {{- end }}
           {{- if .Values.apisix.setIDFromPodUID }}
