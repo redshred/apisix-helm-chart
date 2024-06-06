@@ -71,6 +71,7 @@ spec:
             - -c
             - |-
               ln -s {{ .Values.apisix.standalone.configMap.keyName | quote }} /usr/local/apisix/conf/apisix.yaml
+              ls -l /usr/local/apisix/conf
               /usr/bin/apisix init && \
               /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
           {{- end }}
