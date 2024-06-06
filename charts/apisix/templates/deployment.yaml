@@ -66,10 +66,12 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
-
           command:
-             - /usr/bin/apisix init
-             - /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
+            - /bin/sh
+            - -c
+            - |-
+              /usr/bin/apisix init && \
+              /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
