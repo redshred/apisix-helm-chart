@@ -175,7 +175,7 @@ spec:
                   - "sleep 30"
           volumeMounts:
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
-            - mountPath: /usr/local/apisix/conf/apisix.yaml
+            - mountPath: /apisix-config/apisix.yaml
               subPath: {{ .Values.apisix.standalone.configMap.keyName | quote }}
               name: apisix-standalone-config
           {{- end }}
@@ -184,7 +184,7 @@ spec:
               name: id
               subPath: apisix.uid
           {{- end }}
-            - mountPath: /apisix-config/apisix.yaml
+            - mountPath: /usr/local/apisix/conf/config.yaml
               name: apisix-config
               subPath: config.yaml
           {{- if and .Values.apisix.ssl.enabled .Values.apisix.ssl.existingCASecret }}
