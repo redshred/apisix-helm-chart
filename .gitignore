@@ -3,3 +3,6 @@
 .DS_Store
 test_**.yaml
 .history
+charts/apisix/charts
+charts/apisix-dashboard/charts
+charts/apisix-ingress-controller/charts
