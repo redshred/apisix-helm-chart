@@ -54,7 +54,7 @@ data:
       enable_heartbeat: true
       enable_admin: {{ .Values.apisix.admin.enabled }}
       enable_admin_cors: {{ .Values.apisix.admin.cors }}
-      enable_debug: false
+      enable_debug: true
       {{- if or .Values.apisix.customPlugins.enabled .Values.apisix.luaModuleHook.enabled }}
       extra_lua_path: {{ .Values.apisix.customPlugins.luaPath }};{{ .Values.apisix.luaModuleHook.luaPath }}
       {{- end }}
