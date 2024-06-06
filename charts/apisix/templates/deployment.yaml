@@ -67,8 +67,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
           command:
-            - /docker-entrypoint.sh
-            - docker-start
+            - sh
+            - "-c"
+            - |
+              cp /apisix-config/apisix.yaml /usr/local/apisix/conf/apisix.yaml && \
+              /docker-entrypoint.sh docker-start
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -181,7 +184,7 @@ spec:
               name: id
               subPath: apisix.uid
           {{- end }}
-            - mountPath: /usr/local/apisix/conf/config.yaml
+            - mountPath: /apisix-config/apisix.yaml
               name: apisix-config
               subPath: config.yaml
           {{- if and .Values.apisix.ssl.enabled .Values.apisix.ssl.existingCASecret }}
