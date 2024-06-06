@@ -68,16 +68,8 @@ spec:
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
 
           command:
-            - sh
-            - "-c"
-            - |
-              df
-              ls -la /usr/local/apisix/conf/
-              ls -la /apisix-config/
-              cat /usr/local/apisix/conf/apisix.yaml
-              /usr/bin/apisix init
-              /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
-
+             - /usr/bin/apisix init
+             - /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
