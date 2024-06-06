@@ -231,6 +231,12 @@ metrics:
     annotations: {}
 
 apisix:
+  standalone:
+    configMap:
+      create: true
+      name: "apisix-standalone-config"
+      keyName: "apisix.yaml"
+
   # -- Enable nginx IPv6 resolver
   enableIPv6: true
   enableHTTP2: true

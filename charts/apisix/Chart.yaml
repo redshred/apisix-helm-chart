@@ -16,7 +16,7 @@
 #
 apiVersion: v2
 name: apisix
-description: A Helm chart for Apache APISIX v3
+description: Redshred fork of Apache helm chart for Apache APISIX v3
 icon: https://apache.org/logos/res/apisix/apisix.png
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -31,7 +31,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.8.0
+version: 2.8.0-rs1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -41,22 +41,14 @@ sources:
   - https://github.com/apache/apisix-helm-chart
 
 dependencies:
-  - name: etcd
-    version: 9.7.3
-    repository: https://charts.bitnami.com/bitnami
-    condition: etcd.enabled
   - name: apisix-dashboard
     version: 0.8.2
     repository: https://charts.apiseven.com
     condition: dashboard.enabled
     alias: dashboard
-  - name: apisix-ingress-controller
-    version: 0.14.0
-    repository: https://charts.apiseven.com
-    condition: ingress-controller.enabled
-    alias: ingress-controller
 
 maintainers:
+  - name: adam-huganir
   - name: tao12345666333
 
 # ref: https://artifacthub.io/docs/topics/annotations/helm/

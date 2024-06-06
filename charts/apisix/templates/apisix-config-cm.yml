@@ -14,13 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-{{- if eq .Values.apisix.deployment.mode "standalone" }}
+{{- if and eq .Values.apisix.deployment.mode "standalone" .Values.apisix.standalone.configMap.create }}
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: apisix.yaml
+  name: {{ .Values.apisix.standalone.configMap.name }}
 data:
-  apisix.yaml: |
+  {{ .Values.apisix.standalone.configMap.keyName | quote -}}: |
     routes:
     -
       uri: /hi
