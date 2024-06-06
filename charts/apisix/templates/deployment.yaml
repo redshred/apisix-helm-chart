@@ -190,7 +190,7 @@ spec:
               subPath: {{ .Values.apisix.ssl.certCAFilename }}
           {{- end }}
 
-          {{- if and (not eq .Values.apisix.deployment.mode "standalone") .Values.etcd.auth.tls.enabled }}
+          {{- if and (not (eq .Values.apisix.deployment.mode "standalone")) .Values.etcd.auth.tls.enabled }}
             - mountPath: /etcd-ssl
               name: etcd-ssl
           {{- end }}
