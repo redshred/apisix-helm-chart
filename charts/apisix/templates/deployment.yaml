@@ -66,6 +66,7 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
+
           command:
             - sh
             - "-c"
@@ -73,8 +74,10 @@ spec:
               df
               ls -la /usr/local/apisix/conf/
               ls -la /apisix-config/
-              cat /apisix-config/apisix.yaml > /usr/local/apisix/conf/apisix.yaml && \
-              /docker-entrypoint.sh docker-start
+              cat /usr/local/apisix/conf/apisix.yaml
+              /usr/bin/apisix init
+              /usr/local/openresty/bin/openresty -p /usr/local/apisix -g 'daemon off;'
+
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -178,7 +181,7 @@ spec:
                   - "sleep 30"
           volumeMounts:
           {{- if eq .Values.apisix.deployment.mode "standalone" }}
-            - mountPath: /apisix-config/apisix.yaml
+            - mountPath: /usr/local/apisix/conf/apisix.yaml
               subPath: {{ .Values.apisix.standalone.configMap.keyName | quote }}
               name: apisix-standalone-config
           {{- end }}
